@@ -10,25 +10,31 @@ import XCTest
 @testable import deBarEmBar
 
 class deBarEmBarTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+//MARK Bar Class Test
+    @IBOutlet weak var ImageBar: UIImageView!
+    
+    //Confirm the Bar initializer returns a correct Bar object with valid parameters
+    func testBarInicializationSucceds(){
+        //zero rating
+        let zeroRatingBar = Bar.init(nome: "ZeroRating", foto: ImageBar.image!, telefone: "999867273", coordenadaX: 0.0, coordenadaY: 0.0, rating: 0)
+        XCTAssertNotNil(zeroRatingBar)
+        
+        // Highest positive rating
+        let positiveRatingBar = Bar.init(nome: "MaxRating", foto: nil, telefone: "999867273", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5)
+        XCTAssertNotNil(positiveRatingBar)
+        
     }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    // Confirm that the Meal initialier returns nil when passed a negative rating or an empty name.
+    func testMealInitializationFails() {
+        // Negative rating
+        let negativeRatingBar = Bar.init(nome: "NegativeRating", foto: nil, telefone: "999867273", coordenadaX: 0.0, coordenadaY: 0.0, rating: -1)
+        XCTAssertNil(negativeRatingBar)
+        
+        // Empty String
+        let emptyStringBar = Bar.init(nome: "", foto: nil, telefone: "999867273", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5)
+        XCTAssertNil(emptyStringBar)
+        
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
+
