@@ -11,14 +11,50 @@ import os.log
 
 class Bar: NSObject, NSCoding {
     
+    
+    //MARK: Properties
+    
+    var nome: String?
+    var foto: UIImage?
+    var telefone: String?
+    var endereco: String?
+    var coordenadaX: Float?
+    var coordenadaY: Float?
+    var rating: Int?
+    
+    //MARK: Archiving Paths
+   
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("Bars")
+    
+    struct PropertyKey {
+        static let nome = "nome"
+        static let telefone = "telefone"
+        static let foto = "foto"
+        static let endereco = "endereco"
+        static let coordenadaX = "coordenadaX"
+        static let coordenadaY = "coordenadaY"
+        static let rating = "rating"
+    }
+    //MARK: NSCoding
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(nome, forKey: PropertyKey.nome)
+        aCoder.encode(telefone, forKey: PropertyKey.telefone)
+        aCoder.encode(telefone, forKey: PropertyKey.telefone)
+        aCoder.encode(endereco, forKey: PropertyKey.endereco)
+        aCoder.encode(foto, forKey: PropertyKey.foto)
+        aCoder.encode(rating, forKey: PropertyKey.rating)
+    }
+    
     //MARK: Initialization
-    init?(nome: String?, foto: UIImage?, telefone: String?, coordenadaX: Float?, coordenadaY: Float?, rating: Int?) {
+    init?(nome: String?, foto: UIImage?, telefone: String?, endereco: String?, coordenadaX: Float?, coordenadaY: Float?, rating: Int?) {
         super.init()
         
         // Initialize stored properties.
         startNome(nome: nome!)
         startFoto(image: foto!)
-        startTelefone(telefone: telefone!)
+        startTelefone(telefone: telefone ?? "")
+        startEndereco(endereco: endereco ?? "")
         startCoordenadas(coordenadaXtart: coordenadaX, coordenadaYtart: coordenadaY)
         startRating(rating: rating!)
         
@@ -51,6 +87,15 @@ class Bar: NSObject, NSCoding {
             self.telefone = telefone
         }
     }
+    
+    private func startEndereco(endereco: String){
+        if (endereco.isEmpty) {
+            self.endereco = nil
+        }else{
+            self.endereco = endereco
+        }
+    }
+    
     private func startCoordenadas(coordenadaXtart: Float?, coordenadaYtart: Float?){
         if(coordenadaXtart == nil || coordenadaYtart == nil){
             self.coordenadaX = nil
@@ -66,15 +111,6 @@ class Bar: NSObject, NSCoding {
         }
         self.rating = rating
     }
-    
-    //MARK: NSCoding
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(nome, forKey: PropertyKey.nome)
-        aCoder.encode(telefone, forKey: PropertyKey.telefone)
-        aCoder.encode(foto, forKey: PropertyKey.foto)
-        aCoder.encode(rating, forKey: PropertyKey.rating)
-    }
-    
   
     convenience required init?(coder aDecoder: NSCoder) {
             
@@ -87,35 +123,19 @@ class Bar: NSObject, NSCoding {
             // Because photo is an optional property of Meal, just use conditional cast.
             let foto = aDecoder.decodeObject(forKey: PropertyKey.foto) as? UIImage
         
-            let telefone = aDecoder.decodeObject(forKey: PropertyKey.telefone)
+            let telefone = aDecoder.decodeObject(forKey: PropertyKey.telefone) as? String
+        
+            let endereco = aDecoder.decodeObject(forKey: PropertyKey.endereco) as? String
         
             let coordenadaX = aDecoder.decodeFloat(forKey: PropertyKey.coordenadaX)
         
             let coordenadaY = aDecoder.decodeFloat(forKey: PropertyKey.coordenadaY)
             
-            let rating = aDecoder.decodeInteger(forKey: PropertyKey.rating)
+        let rating = aDecoder.decodeObject(forKey: PropertyKey.rating) as! Int
             
             // Must call designated initializer.
-            self.init(nome: nome,foto: foto, telefone: telefone as! String, coordenadaX: coordenadaX, coordenadaY: coordenadaY, rating: rating)
+        self.init(nome: nome,foto: foto, telefone: telefone, endereco: endereco, coordenadaX: coordenadaX, coordenadaY: coordenadaY, rating: rating as! Int)
             
-    }
-    
-    //MARK: Properties
-    
-    var nome: String?
-    var foto: UIImage?
-    var telefone: String?
-    var coordenadaX: Float?
-    var coordenadaY: Float?
-    var rating: Int?
-    
-    struct PropertyKey {
-        static let nome = "nome"
-        static let telefone = "telefone"
-        static let foto = "foto"
-        static let coordenadaX = "coordenadaX"
-        static let coordenadaY = "coordenadaY"
-        static let rating = "rating"
     }
     
     private func saveMeals() {
@@ -132,8 +152,5 @@ class Bar: NSObject, NSCoding {
     }
     
     
-    //MARK: Archiving Paths
-    
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("Bars")
+  
 }

@@ -39,27 +39,27 @@ class BarTableViewController: UITableViewController {
         let foto5 = UIImage(named: "BarImage5")
         let foto6 = UIImage(named: "BarImage6")
         
-        guard let Bar1 =  Bar(nome: "Bar1", foto: foto1, telefone: "911111111", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5) else {
+        guard let Bar1 =  Bar(nome: "Bar1", foto: foto1, telefone: "911111111", endereco: "Ribeirão Areia", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5) else {
             fatalError("Unable to instantiate Bar1")
         }
         
-        guard let Bar2 =  Bar(nome: "Bar2", foto: foto2, telefone: "922222222", coordenadaX: 0.0, coordenadaY: 0.0, rating: 2) else {
+        guard let Bar2 =  Bar(nome: "Bar2", foto: foto2, telefone: "922222222", endereco: "Ribeirão Solto", coordenadaX: 0.0, coordenadaY: 0.0, rating: 2) else {
             fatalError("Unable to instantiate Bar2")
         }
         
-        guard let Bar3 =  Bar(nome: "Bar3", foto: foto3, telefone: "9333333333", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5) else {
+        guard let Bar3 =  Bar(nome: "Bar3", foto: foto3, telefone: "9333333333", endereco: "Ribeirão Preto", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5) else {
             fatalError("Unable to instantiate Bar3")
         }
         
-        guard let Bar4 =  Bar(nome: "Bar4", foto: foto4, telefone: "944444444", coordenadaX: 0.0, coordenadaY: 0.0, rating: 3) else {
+        guard let Bar4 =  Bar(nome: "Bar4", foto: foto4, telefone: "944444444", endereco: "Testo Alto", coordenadaX: 0.0, coordenadaY: 0.0, rating: 3) else {
             fatalError("Unable to instantiate Bar4")
         }
         
-        guard let Bar5 =  Bar(nome: "Bar5", foto: foto5, telefone: "955555555", coordenadaX: 0.0, coordenadaY: 0.0, rating: 4) else {
+        guard let Bar5 =  Bar(nome: "Bar5", foto: foto5, telefone: "955555555", endereco: "Testo Rega", coordenadaX: 0.0, coordenadaY: 0.0, rating: 4) else {
             fatalError("Unable to instantiate Bar5")
         }
         
-        guard let Bar6 =  Bar(nome: "Bar6", foto: foto6, telefone: "966666666", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5) else {
+        guard let Bar6 =  Bar(nome: "Bar6", foto: foto6, telefone: "966666666", endereco: "Testo Rega2", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5) else {
             fatalError("Unable to instantiate Bar6")
         }
         
@@ -73,7 +73,7 @@ class BarTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bars.count
     }
-    
+     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Table view cells are reused and should be dequeued using a cell identifier.
@@ -131,6 +131,7 @@ class BarTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             bars.remove(at: indexPath.row)
+            saveBars()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -141,6 +142,7 @@ class BarTableViewController: UITableViewController {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(bars, toFile: Bar.ArchiveURL.path)
         if isSuccessfulSave {
             os_log("Bars successfully saved.", log: OSLog.default, type: .debug)
+            updateBars()
         } else {
             os_log("Failed to save bars...", log: OSLog.default, type: .error)
         }
@@ -150,24 +152,30 @@ class BarTableViewController: UITableViewController {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Bar.ArchiveURL.path) as? [Bar]
     }
     
-    @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? BarViewController, let bar = sourceViewController.bar {
+    @IBAction private func updateBars(){
+        bars.sort(by:{$0.nome! < $1.nome!})
+        tableView.reloadData()
+    }
+    
+    
+    @IBAction func unwindToBarList(sender: UIStoryboardSegue){
+    if let sourceViewController = sender.source as? BarViewController, let bar = sourceViewController.bar {
+        
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            // Update an existing bar.
+            bars[selectedIndexPath.row] = bar
+            tableView.reloadRows(at: [selectedIndexPath], with: .none)
+        }
+        else {
+            // Add a new bar.
+            let newIndexPath = IndexPath(row: bars.count, section: 0)
             
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing meal.
-                bars[selectedIndexPath.row] = bar
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            }
-            else {
-                // Add a new bar.
-                let newIndexPath = IndexPath(row: bars.count, section: 0)
-                
-                bars.append(bar)
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
-            
-            // Save the bars.
-            saveBars()
+            bars.append(bar)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+        
+        // Save the bars.
+        saveBars()
         }
     }
 }

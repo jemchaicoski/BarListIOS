@@ -28,8 +28,10 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         // Set up views if editing an existing Meal.
         if let bar = bar {
             navigationItem.title = bar.nome
-            nomeBarTextField.text   = bar.nome
+            nomeBarTextField.text = bar.nome
+            telefoneBarTextField.text = bar.telefone
             ImageBar.image = bar.foto
+            enderecoBarTextField.text = bar.endereco
             RatingBar.rating = bar.rating!
         }
         
@@ -101,10 +103,12 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         let name = nomeBarTextField.text ?? ""
         let foto = ImageBar.image
+        let telefone = telefoneBarTextField.text ?? ""
+        let endereco = enderecoBarTextField.text ?? ""
         let rating = RatingBar.rating
         
         // Set the meal to be passed to MealTableViewController after the unwind segue.
-        bar = Bar(nome: name, foto: foto, telefone: "", coordenadaX: 0.0, coordenadaY: 0.0, rating: rating)
+        bar = Bar(nome: name, foto: foto, telefone: telefone, endereco: endereco, coordenadaX: 0.0, coordenadaY: 0.0, rating: rating)
     }
     
     @IBAction func setImage(_ sender: UITapGestureRecognizer) {
@@ -114,7 +118,6 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         pickerController.mediaTypes = ["public.image"]
         pickerController.sourceType = .photoLibrary
         present(pickerController,animated:true, completion: nil)
-        
     }
 
     @IBAction func Cancel(_ sender: Any) {
