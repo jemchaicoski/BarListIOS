@@ -43,6 +43,7 @@ class BarTableViewController: UITableViewController {
             fatalError("Unable to instantiate Bar1")
         }
         
+        
         guard let Bar2 =  Bar(nome: "Bar2", foto: foto2, telefone: "922222222", endereco: "Ribeirão Solto", coordenadaX: 0.0, coordenadaY: 0.0, rating: 2) else {
             fatalError("Unable to instantiate Bar2")
         }
@@ -62,6 +63,7 @@ class BarTableViewController: UITableViewController {
         guard let Bar6 =  Bar(nome: "Bar6", foto: foto6, telefone: "966666666", endereco: "Testo Rega2", coordenadaX: 0.0, coordenadaY: 0.0, rating: 5) else {
             fatalError("Unable to instantiate Bar6")
         }
+    
         
         bars += [Bar1, Bar2, Bar3, Bar4, Bar5, Bar6]
     }
@@ -157,7 +159,6 @@ class BarTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    
     @IBAction func unwindToBarList(sender: UIStoryboardSegue){
     if let sourceViewController = sender.source as? BarViewController, let bar = sourceViewController.bar {
         
@@ -178,4 +179,5 @@ class BarTableViewController: UITableViewController {
         saveBars()
         }
     }
+    
 }

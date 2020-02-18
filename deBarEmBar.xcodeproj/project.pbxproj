@@ -17,6 +17,7 @@
 		AB8BB38D23E85B5C008B3604 /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BB38B23E85B5C008B3604 /* Bar.swift */; };
 		ABF00A2323EAFDF80033156D /* BarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF00A2223EAFDF80033156D /* BarTableViewCell.swift */; };
 		ABF00A2523EC34870033156D /* BarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF00A2423EC34870033156D /* BarTableViewController.swift */; };
+		ABF00A2923FAB2990033156D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF00A2823FAB2990033156D /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		AB8BB38C23E85B5C008B3604 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Base; path = Base.lproj/Bar.swift; sourceTree = "<group>"; };
 		ABF00A2223EAFDF80033156D /* BarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTableViewCell.swift; sourceTree = "<group>"; };
 		ABF00A2423EC34870033156D /* BarTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTableViewController.swift; sourceTree = "<group>"; };
+		ABF00A2823FAB2990033156D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,16 +87,14 @@
 		AB20C0FE23E1A0B800B8B496 /* deBarEmBar */ = {
 			isa = PBXGroup;
 			children = (
-				AB20C0FF23E1A0B800B8B496 /* AppDelegate.swift */,
-				AB20C10123E1A0B800B8B496 /* BarViewController.swift */,
+				ABF00A2A23FAC4C20033156D /* Controller */,
+				ABF00A2B23FAC4FC0033156D /* Model */,
+				ABF00A2C23FAC5520033156D /* View */,
 				AB20C10323E1A0B800B8B496 /* Main.storyboard */,
-				AB73D8C823E4725E00B2E522 /* Assets.xcassets */,
-				AB20C11F23E44AFD00B8B496 /* RatingBar.swift */,
 				AB20C10823E1A0C700B8B496 /* LaunchScreen.storyboard */,
+				AB20C0FF23E1A0B800B8B496 /* AppDelegate.swift */,
 				AB20C10B23E1A0C700B8B496 /* Info.plist */,
-				AB8BB38B23E85B5C008B3604 /* Bar.swift */,
-				ABF00A2223EAFDF80033156D /* BarTableViewCell.swift */,
-				ABF00A2423EC34870033156D /* BarTableViewController.swift */,
+				AB73D8C823E4725E00B2E522 /* Assets.xcassets */,
 			);
 			path = deBarEmBar;
 			sourceTree = "<group>";
@@ -106,6 +106,33 @@
 				AB20C11623E1A0C800B8B496 /* Info.plist */,
 			);
 			path = deBarEmBarTests;
+			sourceTree = "<group>";
+		};
+		ABF00A2A23FAC4C20033156D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ABF00A2423EC34870033156D /* BarTableViewController.swift */,
+				AB20C10123E1A0B800B8B496 /* BarViewController.swift */,
+				ABF00A2823FAB2990033156D /* MapViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		ABF00A2B23FAC4FC0033156D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB8BB38B23E85B5C008B3604 /* Bar.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		ABF00A2C23FAC5520033156D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AB20C11F23E44AFD00B8B496 /* RatingBar.swift */,
+				ABF00A2223EAFDF80033156D /* BarTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +242,7 @@
 				AB8BB38D23E85B5C008B3604 /* Bar.swift in Sources */,
 				AB20C10223E1A0B800B8B496 /* BarViewController.swift in Sources */,
 				AB20C10023E1A0B800B8B496 /* AppDelegate.swift in Sources */,
+				ABF00A2923FAB2990033156D /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

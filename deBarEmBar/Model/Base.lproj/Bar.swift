@@ -6,6 +6,7 @@
 //  Copyright © 2020 hbsiscom.hbsis.padawan. All rights reserved.
 //
 import UIKit
+import MapKit
 import Foundation
 import os.log
 
@@ -18,8 +19,8 @@ class Bar: NSObject, NSCoding {
     var foto: UIImage?
     var telefone: String?
     var endereco: String?
-    var coordenadaX: Float?
-    var coordenadaY: Float?
+    var coordenadaX: Double?
+    var coordenadaY: Double?
     var rating: Int?
     
     //MARK: Archiving Paths
@@ -47,7 +48,7 @@ class Bar: NSObject, NSCoding {
     }
     
     //MARK: Initialization
-    init?(nome: String?, foto: UIImage?, telefone: String?, endereco: String?, coordenadaX: Float?, coordenadaY: Float?, rating: Int?) {
+    init?(nome: String?, foto: UIImage?, telefone: String?, endereco: String?, coordenadaX: Double?, coordenadaY: Double?, rating: Int?) {
         super.init()
         
         // Initialize stored properties.
@@ -96,7 +97,7 @@ class Bar: NSObject, NSCoding {
         }
     }
     
-    private func startCoordenadas(coordenadaXtart: Float?, coordenadaYtart: Float?){
+    private func startCoordenadas(coordenadaXtart: Double?, coordenadaYtart: Double?){
         if(coordenadaXtart == nil || coordenadaYtart == nil){
             self.coordenadaX = nil
             self.coordenadaY = nil
@@ -127,9 +128,9 @@ class Bar: NSObject, NSCoding {
         
             let endereco = aDecoder.decodeObject(forKey: PropertyKey.endereco) as? String
         
-            let coordenadaX = aDecoder.decodeFloat(forKey: PropertyKey.coordenadaX)
+            let coordenadaX = aDecoder.decodeDouble(forKey: PropertyKey.coordenadaX)
         
-            let coordenadaY = aDecoder.decodeFloat(forKey: PropertyKey.coordenadaY)
+            let coordenadaY = aDecoder.decodeDouble(forKey: PropertyKey.coordenadaY)
             
         let rating = aDecoder.decodeObject(forKey: PropertyKey.rating) as! Int
             
@@ -151,6 +152,15 @@ class Bar: NSObject, NSCoding {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Bar.ArchiveURL.path) as? [Bar]
     }
     
-    
-  
+    public func barToAnotation() -> MKPointAnnotation{
+        var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(
+            latitude : self.coordenadaX!, longitude : self.coordenadaY!
+        )
+        let title : String = self.nome!;
+        
+        var barAnnotation = MKPointAnnotation()
+        barAnnotation.coordinate = coordinate
+        barAnnotation.title = title
+        return barAnnotation;
+    }
 }
