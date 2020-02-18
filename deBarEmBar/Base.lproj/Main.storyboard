@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bA2-PP-41h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gJf-mb-ptt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -72,7 +72,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7uG-ZF-xTL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="104.8" y="128.18590704647679"/>
+            <point key="canvasLocation" x="1044" y="128.18590704647679"/>
         </scene>
         <!--Novo Bar-->
         <scene sceneID="tne-QT-ifu">
@@ -171,7 +171,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1938" y="133"/>
+            <point key="canvasLocation" x="1850" y="-551"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="mlt-MW-Vbp">
@@ -182,7 +182,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="oce-pN-InE">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="UMr-HC-y4h" appends="YES" id="FpL-2Q-jIV"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -195,13 +199,25 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QrQ-qx-biH"/>
                     </view>
+                    <navigationItem key="navigationItem" id="UcF-gI-Hq8">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="hFm-lY-AXz">
+                            <connections>
+                                <segue destination="RUp-IL-lhd" kind="show" id="cDu-yT-SDX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="oce-pN-InE" id="ziR-VN-bGP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSn-nP-270" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="UMr-HC-y4h">
+                    <connections>
+                        <action selector="longPressMap:" destination="bA2-PP-41h" id="HsS-Rm-kan"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1652" y="133"/>
+            <point key="canvasLocation" x="-692" y="127.28635682158921"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="znh-HL-rXq">
@@ -219,7 +235,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Cn-Ui-KdP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-834.39999999999998" y="128.18590704647679"/>
+            <point key="canvasLocation" x="104.8" y="128.18590704647679"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bvk-Lr-MXc">
@@ -237,7 +253,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D67-Oi-xqC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1028" y="565"/>
+            <point key="canvasLocation" x="1967.2" y="564.46776611694156"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gCx-Li-Oog">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gJf-mb-ptt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vV3-ms-XH0">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bA2-PP-41h" kind="relationship" relationship="rootViewController" id="hcu-YP-bMS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MVa-ys-Y4z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1631.2" y="127.28635682158921"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

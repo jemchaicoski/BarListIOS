@@ -23,7 +23,7 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     override func viewDidLoad() { 
         super.viewDidLoad()
-        nomeBarTextField.delegate = self;
+        //nomeBarTextField.delegate = self;
         
         // Set up views if editing an existing Meal.
         if let bar = bar {
@@ -138,8 +138,8 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     //MARK: Private Methods
     private func updateSaveButtonState() {
         // Disable the Save button if the text field is empty.
-        let text = nomeBarTextField.text ?? ""
-        btnSalvar.isEnabled = !text.isEmpty
+//        let text = nomeBarTextField.text ?? ""
+        //btnSalvar.isEnabled = !text.isEmpty
     }
     
 }
