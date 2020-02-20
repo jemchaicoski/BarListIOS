@@ -72,7 +72,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7uG-ZF-xTL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="128.18590704647679"/>
+            <point key="canvasLocation" x="604" y="-226"/>
         </scene>
         <!--Novo Bar-->
         <scene sceneID="tne-QT-ifu">
@@ -171,7 +171,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1967" y="-524"/>
+            <point key="canvasLocation" x="2505" y="-636"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="mlt-MW-Vbp">
@@ -218,7 +218,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-692" y="127.28635682158921"/>
+            <point key="canvasLocation" x="-714" y="-635"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="znh-HL-rXq">
@@ -236,7 +236,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Cn-Ui-KdP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="104.8" y="128.18590704647679"/>
+            <point key="canvasLocation" x="-714" y="224"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Bvk-Lr-MXc">
@@ -254,7 +254,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D67-Oi-xqC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1967.2" y="564.46776611694156"/>
+            <point key="canvasLocation" x="1678" y="224"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gCx-Li-Oog">
@@ -272,10 +272,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVa-ys-Y4z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1631.2" y="127.28635682158921"/>
+            <point key="canvasLocation" x="-1828" y="-636"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wi8-XM-Ad5"/>
+        <segue reference="GIy-bu-K1F"/>
     </inferredMetricsTieBreakers>
 </document>
