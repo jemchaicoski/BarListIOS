@@ -12,7 +12,6 @@ import os.log
 
 class Bar: NSObject, NSCoding {
     
-    
     //MARK: Properties
     
     var nome: String?
@@ -61,6 +60,7 @@ class Bar: NSObject, NSCoding {
         
     }
     
+    //MARK: starts
     private func startNome(nome: String){
         if(nome.isEmpty || nome.count < 3 ){
             self.nome = nil
@@ -88,7 +88,6 @@ class Bar: NSObject, NSCoding {
             self.telefone = telefone
         }
     }
-    
     private func startEndereco(endereco: String){
         if (endereco.isEmpty) {
             self.endereco = nil
@@ -96,7 +95,6 @@ class Bar: NSObject, NSCoding {
             self.endereco = endereco
         }
     }
-    
     private func startCoordenadas(coordenadaXtart: Double?, coordenadaYtart: Double?){
         if(coordenadaXtart == nil || coordenadaYtart == nil){
             self.coordenadaX = nil
@@ -114,7 +112,6 @@ class Bar: NSObject, NSCoding {
     }
   
     convenience required init?(coder aDecoder: NSCoder) {
-            
             // The name is required. If we cannot decode a name string, the initializer should fail.
             guard let nome = aDecoder.decodeObject(forKey: PropertyKey.nome) as? String else {
                 os_log("Unable to decode the name for a Meal object.", log: OSLog.default, type: .debug)
@@ -136,20 +133,6 @@ class Bar: NSObject, NSCoding {
             
             // Must call designated initializer.
         self.init(nome: nome,foto: foto, telefone: telefone, endereco: endereco, coordenadaX: coordenadaX, coordenadaY: coordenadaY, rating: rating as! Int)
-            
-    }
-    
-    private func saveMeals() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(bars, toFile: Bar.ArchiveURL.path)
-        if isSuccessfulSave {
-            os_log("Bars successfully saved.", log: OSLog.default, type: .debug)
-        } else {
-            os_log("Failed to save bars...", log: OSLog.default, type: .error)
-        }
-    }
-    
-    private func loadMeals() -> [Bar]?  {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Bar.ArchiveURL.path) as? [Bar]
     }
     
     public func barToAnotation() -> MKPointAnnotation{
@@ -162,5 +145,18 @@ class Bar: NSObject, NSCoding {
         barAnnotation.coordinate = coordinate
         barAnnotation.title = title
         return barAnnotation;
+    }
+    
+    private func saveBars() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(bars, toFile: Bar.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Bars successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save bars...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadBars() -> [Bar]?  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Bar.ArchiveURL.path) as? [Bar]
     }
 }

@@ -33,7 +33,6 @@ class MapViewController: UIViewController{
 
     @IBAction func longPressMap(_ sender: Any) {
         DispatchQueue.main.async(){self.performSegue(withIdentifier: "NovoBarDoMapa", sender: self)}
-        
     }
     
     private func loadPoints(){
