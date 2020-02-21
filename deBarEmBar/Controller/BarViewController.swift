@@ -109,6 +109,8 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         // Set the meal to be passed to MealTableViewController after the unwind segue.
         bar = Bar(nome: name, foto: foto, telefone: telefone, endereco: endereco, coordenadaX: 0.0, coordenadaY: 0.0, rating: rating)
+        
+        bar!.saveBar(bar: bar!, posicao: nil)
     }
     
     @IBAction func setImage(_ sender: UITapGestureRecognizer) {

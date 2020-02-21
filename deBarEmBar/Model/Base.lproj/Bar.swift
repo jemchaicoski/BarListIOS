@@ -147,7 +147,7 @@ class Bar: NSObject, NSCoding {
         return barAnnotation;
     }
     
-    private func saveBars() {
+    private func saveBars(bars: [Bar]) {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(bars, toFile: Bar.ArchiveURL.path)
         if isSuccessfulSave {
             os_log("Bars successfully saved.", log: OSLog.default, type: .debug)
@@ -156,7 +156,17 @@ class Bar: NSObject, NSCoding {
         }
     }
     
-    private func loadBars() -> [Bar]?  {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Bar.ArchiveURL.path) as? [Bar]
+    public func saveBar(bar: Bar, posicao: Int?) {
+        var bares: [Bar] = Bar.loadBars()
+        if posicao == nil {
+            bares.append(bar)
+        }else{
+            bares[posicao!] = bar
+        }
+        saveBars(bars: bares)
+    }
+    
+    public static func loadBars() -> [Bar]  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Bar.ArchiveURL.path) as? [Bar] ?? [Bar]()
     }
 }

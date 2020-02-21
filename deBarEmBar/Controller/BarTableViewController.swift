@@ -95,7 +95,8 @@ class BarTableViewController: UITableViewController {
     
     @IBAction func unwindToBarList(sender: UIStoryboardSegue){
     if let sourceViewController = sender.source as? BarViewController, let bar = sourceViewController.bar {
-        
+        bars = Bar.loadBars()
+
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
             // Update an existing bar.
             bars[selectedIndexPath.row] = bar
@@ -105,7 +106,7 @@ class BarTableViewController: UITableViewController {
             // Add a new bar.
             let newIndexPath = IndexPath(row: bars.count, section: 0)
             
-            bars.append(bar)
+    
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
         }
