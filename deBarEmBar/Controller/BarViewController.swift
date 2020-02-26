@@ -19,10 +19,12 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     @IBOutlet weak var RatingBar: RatingBar!
     var bar: Bar?
     @IBOutlet weak var btnSalvar: UIBarButtonItem!
+    var retorno: String?
  
     
     override func viewDidLoad() { 
         super.viewDidLoad()
+        
         //nomeBarTextField.delegate = self;
         
         // Set up views if editing an existing Meal.
@@ -34,7 +36,7 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             enderecoBarTextField.text = bar.endereco
             RatingBar.rating = bar.rating!
         }
-        
+        nomeBarTextField.delegate = self
         
         // Enable the Save button only if the text field has a valid Bar name.
         updateSaveButtonState()
@@ -67,8 +69,8 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        updateSaveButtonState()
         navigationItem.title = textField.text
+        updateSaveButtonState()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -94,24 +96,20 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     // This method lets you configure a view controller before it's presented.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        // Configure the destination view controller only when the save button is pressed.
-        guard let button = sender as? UIBarButtonItem, button === btnSalvar else {
-            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
-            return
+        switch retorno {
+        case "table":
+            super.prepare(for: segue, sender: sender)
+            // Configure the destination view controller only when the save button is pressed.
+            guard let button = sender as? UIBarButtonItem, button === btnSalvar else {
+                os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+                return
+            }
+        default:
+            self.dismiss(animated: true, completion: nil)
         }
-        
-        let name = nomeBarTextField.text ?? ""
-        let foto = ImageBar.image
-        let telefone = telefoneBarTextField.text ?? ""
-        let endereco = enderecoBarTextField.text ?? ""
-        let rating = RatingBar.rating
-        
-        // Set the meal to be passed to MealTableViewController after the unwind segue.
-        bar = Bar(nome: name, foto: foto, telefone: telefone, endereco: endereco, coordenadaX: 0.0, coordenadaY: 0.0, rating: rating)
-        
-        bar!.saveBar(bar: bar!, posicao: nil)
     }
+    
+   
     
     @IBAction func setImage(_ sender: UITapGestureRecognizer) {
         let pickerController = UIImagePickerController()
@@ -137,11 +135,23 @@ class BarViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         }
     }
     
-    //MARK: Private Methods
-    private func updateSaveButtonState() {
-        // Disable the Save button if the text field is empty.
-//        let text = nomeBarTextField.text ?? ""
-        //btnSalvar.isEnabled = !text.isEmpty
+    @IBAction func salvarBar(){
+        let name = nomeBarTextField.text ?? ""
+        let foto = ImageBar.image
+        let telefone = telefoneBarTextField.text ?? ""
+        let endereco = enderecoBarTextField.text ?? ""
+        let rating = RatingBar.rating
+        
+        bar = Bar(nome: name, foto: foto, telefone: telefone, endereco: endereco, coordenadaX: 0.0, coordenadaY: 0.0, rating: rating)
+        
+        bar!.saveBar(bar: bar!, posicao: nil)
+        DispatchQueue.main.async(){self.dismiss(animated: true, completion: nil)}
     }
     
+    //MARK: Private Methods
+    private func updateSaveButtonState() {
+        //Disable the Save button if the text field is empty.
+        let text = nomeBarTextField.text ?? ""
+        btnSalvar.isEnabled = !text.isEmpty
+    }
 }

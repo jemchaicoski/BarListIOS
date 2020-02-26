@@ -76,6 +76,7 @@ class BarTableViewController: UITableViewController {
             
             let selectedBar = bars[indexPath.row]
             barDetailViewController.bar = selectedBar
+            barDetailViewController.retorno = "table"
             
         default:
             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
@@ -110,6 +111,10 @@ class BarTableViewController: UITableViewController {
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
         }
+    }
+    
+    @IBAction func exit(){
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction private func updateBars(){

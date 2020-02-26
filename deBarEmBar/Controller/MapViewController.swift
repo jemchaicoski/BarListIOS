@@ -14,10 +14,9 @@ class MapViewController: UIViewController{
     @IBOutlet weak var mapView: MKMapView!
     
     //points
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // set initial location in Proway
         let initialLocation = CLLocation(latitude: -26.9172369, longitude: -49.0707435)
         centerMapOnLocation(location: initialLocation)
@@ -30,21 +29,28 @@ class MapViewController: UIViewController{
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
-
-    @IBAction func longPressMap(_ sender: Any) {
-        DispatchQueue.main.async(){self.performSegue(withIdentifier: "NovoBarDoMapa", sender: self)}
+    
+    @IBAction func longPressMap(_ sender: UIGestureRecognizer) {
+        if sender.state == .began {
+            DispatchQueue.main.async(){self.performSegue(withIdentifier: "NovoBarDoMapa", sender: self)}
+        }
+        
     }
     
     private func loadPoints(){
         //bars = loadBars()!
         for bar in bars{
             mapView.addAnnotation(bar.barToAnotation())
-            }
+        }
     }
     
     func mapView(_ mapView: MKMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-      // coordinate.latitude 
+        // coordinate.latitude
     }
-
+    
+    override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
+        loadPoints();
+    }
+    
 }
 

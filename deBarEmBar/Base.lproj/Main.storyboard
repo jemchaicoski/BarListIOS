@@ -63,7 +63,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Seus Bares" id="DUg-uy-CLC">
-                        <barButtonItem key="leftBarButtonItem" title="←Mapa" id="eFe-bS-Flx"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="eFe-bS-Flx">
+                            <connections>
+                                <action selector="exit" destination="TFs-Tc-07a" id="VVz-1u-F3f"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7uG-ZF-xTL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -146,6 +150,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="LHa-EM-RUJ">
                             <connections>
+                                <action selector="salvarBar" destination="BYZ-38-t0r" id="27V-1f-Jz6"/>
                                 <segue destination="opK-LS-lua" kind="unwind" unwindAction="unwindToBarListWithSender:" id="5Nz-aa-0ea"/>
                             </connections>
                         </barButtonItem>
@@ -254,6 +259,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yPe-sD-FLX"/>
+        <segue reference="wi8-XM-Ad5"/>
     </inferredMetricsTieBreakers>
 </document>
